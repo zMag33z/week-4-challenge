@@ -1,0 +1,60 @@
+
+header {
+    height: 50px;
+}
+
+main {
+    text-align: center;
+}
+
+main, .lower-Div {
+    margin-left: auto;
+    margin-right: auto;
+    width: 580px;
+}
+
+.View-Highscores {
+    float: left;
+    color: rgb(87, 10, 131);
+}
+
+.Timer {
+    float: right;
+    width: 70px;
+}
+
+.View-Highscores, .Timer {
+    margin: 10px;
+    font-weight: 550;
+}
+
+h2 {
+    font-size: 175%;
+}
+
+h2, button {
+    margin: 15px;
+}
+
+.Quiz-Answer {
+    background-color: rgb(87, 10, 131);
+    color: white;
+}
+
+button {
+    background-color: rgb(87, 10, 131); 
+    color: white; 
+}
+
+.lower-Div {
+    border-top-style: solid;
+    border-color: rgb(200, 200, 200);
+}
+
+.Poppin {
+    margin-top: 10px;
+    font-size: 110%;
+    font-weight: lighter;
+    font-style: italic;
+    color: rgb(200, 200, 200);
+}
