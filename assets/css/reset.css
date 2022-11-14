@@ -1,4 +1,12 @@
+:root {
+    --View-HSandButton-color: rgb(87, 10, 131);
+    --Button-font: white;
+    --Correct-Wrong: rgb(200, 200, 200);
+
+}
+
 * {
+    background-color: white;
     margin: 0;
     padding: 0;
     font-size: 20px;

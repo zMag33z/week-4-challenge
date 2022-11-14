@@ -10,26 +10,29 @@
   </head>
 
 <body>
-  <script src="./assets/js/script.js"></script>
 
   <header>
-    <p class="View-Highscores">View Highscores</p><!--don't forget click call to run function highscore save again-->
+    <button class="View-Highscores">View Highscores, During Calculated score- Js- visibility: hidden;</button><!--JS- Click event Highscores stored function-->
     <p class="Timer">timer:&nbsp;&nbsp;<span id="Time-Entered">0</span> </p><!--I supposed time function will be nested with quiz function that way it's continuously running-->
   </header>
 
-  <main><!--will need to turn off text-alightcenter----text-align: -->
-    <h2>Coding Quiz Challenge</h2><!--Click of start Quiz will change h2 to Question and use slightly smaller font-->
-    <!--  and change with "p" current display none---to display block on the next three p's-->
-    <p>Try to answer the following code-related questions within the time limit.  Keep in mind that incorrect answers will penalize your scoretime by 10 seconds.</p>
-    <p class="Quiz-Answer" style="display: none;">h2 turns into a Question, above p is Answer 1, this is Answer 2</p>
-    <p class="Quiz-Answer" style="display: none;">Answer 3</p>
-    <p class="Quiz-Answer" style="display: none;">Answer 4</p>
-    <button>Start Quiz</button>
+  <main><!--JS- turn off text-alightcenter----text-align: in function quiz-->
+    <h2 id="Intro-Question">Intro first, Question second- Js- font-size: 125%; High Scores- Js- font-size: 175%;</h2><!--JS- reduce font size to 125%-->
+    <!--JS- display: none to p-class-directions-->
+    <p id="Directions">Directions to the quiz. Js- display: none; Calculated score- Js- display: block; View Highscores- Js- display: none;</p>
+    
+    <button id="A1" class="Answer" style="display: none;">Answer 1, Js- display: block; Finsih, display: none;</button>
+    <button id="A2" class="Answer" style="display: none;">Answer 2, Js- display: block; Finsih, display: none;</button>
+    <button id="A3" class="Answer" style="display: none;">Answer 3, Js- display: block; Finsih, display: none;</button>
+    <button id="A4" class="Answer" style="display: none;">Answer 4, Js- display: block; Finsih, display: none;</button>
+    
+    <button class="Start-Submit">Start Quiz/Submit Score while questions display: none;</button><!--add click event to function quiz-->
   </main>
 
-    <div class="lower-Div" style="display: none;"><!--JS change response to either or and display: block-->
-      <p class="Poppin">Correct!/Wrong!</p>
+    <div class="Answer-Output" style="display: none;"><!--JS- display: block, then set it to be none again then back to block after each clicked answer-->
+      <p class="Poppin">Correct!/Wrong! display: block; change text depending on answer</p>
     </div>
 
+   <script src="./assets/js/script.js"></script><!--Had to place script at the bottom so the page could load first.-->
 </body>
 </html>
