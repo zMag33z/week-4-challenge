@@ -1,3 +1,6 @@
+body {
+    background-color: var(--Background);
+}
 
 header {
     height: 50px;
@@ -31,23 +34,23 @@ main, .Answer-Output {
 }
 
 h2 {
+    margin: 15px 0 15px 0;
     font-size: 175%;
 }
 
-h2, button {
-    margin: 15px;
-}
-
 .Answer {
+    margin-bottom: 5px;
+    border-radius: 5px;
     background-color: var(--View-HSandButton-color);
-    color: var(--Button-font);
+    color: var(--Button-Answer-font);
 }
 
 .Start-Submit {
+    margin-top: 15px;
     border-radius: 5px;
     min-width: 100px;
     background-color: var(--View-HSandButton-color); 
-    color: var(--Button-font); 
+    color: var(--Button-Answer-font); 
 }
 
 .Answer-Output {
@@ -62,3 +65,25 @@ h2, button {
     font-style: italic;
     color: var(--Correct-Wrong);
 }
+
+.Answer:hover {
+    opacity: 0.6;
+}
+
+/*Input box*/
+.Int {
+    border-color: var(--All-Other-Font);
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+}
+
+
+
+
+
+
+
+
+

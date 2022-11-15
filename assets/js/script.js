@@ -1,8 +1,13 @@
+console.dir(document);
+
+
 // I went with manipulate current.  One appendage use in Highscores.
 // All variables claimed to attach to tags either by class or id.
 
 var ViewHighscores = document.querySelector(".View-Highscores");
-var Timer = document.querySelector("#Time-Entered");
+var Timer = document.querySelector(".Timer");
+var Time = document.querySelector("#Time-Entered");
+var Main = document.querySelector("main")
 var IntroQuestion = document.querySelector("#Intro-Question");
 var Directions = document.querySelector("#Directions");
 var StartSubmit = document.querySelector(".Start-Submit");
@@ -14,6 +19,9 @@ var A4 = document.querySelector("#A4");
 var AnswerOutput = document.querySelector(".Answer-Output");
 var CorrectWrong = document.querySelector(".Poppin");
 var Wrong = -10;
+var UserInitials = document.querySelector("#User");
+var Scored = document.createElement("p");
+
 
 
 
@@ -51,86 +59,69 @@ var Wrong = -10;
 
 //Content output during page load.
 ViewHighscores.textContent = "View Highscores";
-//Timer.textContent = "0";
+Time.textContent = "0";
 //IntroQuestion.textContent = "Coding Quiz Challenge";
 //Directions.textContent = "Try to answer the following code-related questions within the time limit.  Keep in mind that an incorrect answer will penalize your scoretime by 10 seconds.";
 //StartSubmit.textContent = "Start Quiz";
 
+
+
+
 //Question page test for display code.
 // for timer we'll need to add to it Timer.textContent = whatever function is running it and subtracting from it.
-IntroQuestion.textContent = "Example example example example example example example example example example example example example example?";
-IntroQuestion.setAttribute("style", "text-align: left; font-size: 125%;");
-Directions.setAttribute("style", "text-align: left; display: none;");
-StartSubmit.textContent = "Submit";
-StartSubmit.setAttribute("style", "display: none;");
-A1.textContent = "a\xa0  test a";
-A2.textContent = "b\xa0  test b";
-A3.textContent = "c\xa0  test c";
-A4.textContent = "d\xa0  test d";
-A1.setAttribute("style", "display: block;");// can't get for to work four times for me ???
-A2.setAttribute("style", "display: block;");
-A3.setAttribute("style", "display: block;");
-A4.setAttribute("style", "display: block;");
-
-var Correct = AnswerOutput;
-var Wrong = AnswerOutput;
-AnswerOutput.setAttribute("style", "display: block;");//when answer selected display block
-CorrectWrong.textContent = "Correct!";
+//IntroQuestion.textContent = "Example example example example example example example example example example example example example example?";
+Main.setAttribute("style", "text-align: left;");
+IntroQuestion.setAttribute("style", "font-size: 125%;");
+//Directions.setAttribute("style", "display: none;");
+//StartSubmit.textContent = "Submit";
+//StartSubmit.setAttribute("style", "display: none;");
+//A1.textContent = "\xa0a.\xa0  test a\xa0";
+//A2.textContent = "\xa0b.\xa0  test b\xa0";
+//A3.textContent = "\xa0c.\xa0  test c\xa0";
+//A4.textContent = "\xa0d.\xa0  test d\xa0";
+//A1.setAttribute("style", "display: block;");// can't get for to work four times for me ???
+//A2.setAttribute("style", "display: block;");
+//A3.setAttribute("style", "display: block;");
+//A4.setAttribute("style", "display: block;");
+//var Correct = AnswerOutput;
+//var Wrong = AnswerOutput;
+//AnswerOutput.setAttribute("style", "display: block;");//when answer selected display block
+//CorrectWrong.textContent = "Correct!";
 //CorrectWrong.textContent = "Wrong!";
+//End of questions move to next function and pass time.
 
 
 
 
-
-//Start Quiz Button- function Quiz()
-//Some kind of timer function.
-//h2 font-size: 125%; change text to question inside key.
-//Answer Button- display: block;
-//Answer Button click- display: block; class ".Poppin", change text depending if Correct/Wrong, Reduce timer by 10 if Wrong.
-//Next Question- start with class ".Poppin" display: none; h2- gets new question, Answer Button-s- get new answers.
-//Repeat
-//
-//Pass the timer for the next function
-//Go into Quiz finish
-
-//Quiz Finish- start with Answer Buttons- display: none; Class Poppin- display:none;, h2- change text, id "#Directions"- display block; change text and + timer, An indexbox- display inline-block;, Submit button- display inline-block;.
-
-//Submit Button- to Highscores
-
-//Highscores- append p for any inital input- will probably need variable for current user, "Style", "background-color: rgb(212,178,231);"
-//Go Back button- function reload to Intro but keep highscores.
-//Go Back button after: Clear Highscores- redirect to page link.
-//Clear Highscores button- clear key containing highscores.
+//Finish Enter Initials
+//A1.setAttribute("style", "display: none;");// can't get for to work four times for me ???
+//A2.setAttribute("style", "display: none;");
+//A3.setAttribute("style", "display: none;");
+//A4.setAttribute("style", "display: none;");
+//AnswerOutput.setAttribute("style", "display: none;");
+IntroQuestion.textContent = "All done!";
+Directions.textContent = "Your final score is\xa0" + Time.textContent;
+Directions.setAttribute("style", "display: block;");
+//StartSubmit.setAttribute("style", "display: inline-block;");
+//click submit head to next function.
 
 
 
 
+//Highscores
+//Retrieve initals and score
+ViewHighscores.setAttribute("style", "visibility: hidden;");
+Timer.setAttribute("style", "visibility: hidden;");
+Directions.setAttribute("style", "display: none;");
+StartSubmit.setAttribute("style", "display: none;");
+UserInitials.setAttribute("style", "display: none;");
+IntroQuestion.textContent = "Highscores";
+//IntroQuestion.appendChild("p");
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//if there is a highscores record then append new p for each. will probably need variable for current user, "Style", "background-color: rgb(212,178,231);"
+//if highscores not cleared allow to quiz start and keep global variable.
 
 
 

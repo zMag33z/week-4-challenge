@@ -1,13 +1,17 @@
+/*Customize color scheme easily*/
 :root {
+    --Background: rgb(161, 206, 188);
     --View-HSandButton-color: rgb(87, 10, 131);
-    --Button-font: white;
+    --Button-Answer-font: white;
     --Correct-Wrong: rgb(200, 200, 200);
+    --All-Other-Font: black;
 
 }
 
-* {
-    background-color: white;
+* {    
     margin: 0;
     padding: 0;
+    background-color: transparent;
     font-size: 20px;
+    color: var(--All-Other-Font);
 }
