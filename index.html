@@ -12,30 +12,32 @@
 <body>
 
   <header>
-    <button class="View-Highscores">View Highscores, During Calculated score- Js- visibility: hidden;</button><!--JS- Click event Highscores stored function-->
-    <p class="Timer">timer:&nbsp;&nbsp;<span id="Time-Entered">0</span> </p><!--I supposed time function will be nested with quiz function that way it's continuously running-->
+    <button class="View-Highscores">View Highscores.  During Calculated score- Js- visibility: hidden;</button><!--JS- Click event Highscores stored function-->
+    <p class="Timer">timer:&nbsp;&nbsp;<span id="Time-Entered">0 </span> </p><!--I supposed time function will be nested with quiz function that way it's continuously running-->
   </header>
 
   <main><!--JS- turn off text-alightcenter----text-align: in function quiz-->
-    <h2 id="Intro-Question">Intro first, Question second- Js- font-size: 125%; High Scores- Js- font-size: 175%;</h2><!--JS- reduce font size to 125%-->
+    <h2 id="Intro-Question">Intro first, Question second- Js- font-size: 125%;</h2><!--JS- reduce font size to 125%-->
     <!--JS- display: none to p-class-directions-->
-    <p id="Directions">Directions to the quiz. Js- display: none; Calculated score- Js- display: block; View Highscores- Js- display: none;</p>
+    <p id="Directions">Directions to the quiz.</p>
     
-    <button id="A1" class="Answer" style="display: none;">Answer 1, Js- display: block; Finsih, display: none;</button>
-    <button id="A2" class="Answer" style="display: none;">Answer 2, Js- display: block; Finsih, display: none;</button>
-    <button id="A3" class="Answer" style="display: none;">Answer 3, Js- display: block; Finsih, display: none;</button>
-    <button id="A4" class="Answer" style="display: none;">Answer 4, Js- display: block; Finsih, display: none;</button>
-    
-    <form id="User" action="/action_page.php" style="display: inline-block;">
+    <div class="Answer-Container">
+      <button id="A1" class="Answer" onclick="CheckAnswer('A')">Answer 1</button>
+      <button id="A2" class="Answer" onclick="CheckAnswer('B')">Answer 2</button>
+      <button id="A3" class="Answer" onclick="CheckAnswer('C')">Answer 3</button>
+      <button id="A4" class="Answer" onclick="CheckAnswer('D')">Answer 4</button>
+    </div>
+
+    <form id="User" action="/action_page.php">
       <label for="Int">Enter your initials.</label>
       <input type="text" id="Int" name="quantity" min=1 max=5>
     </form>
 
-    <button class="Start-Submit">Start Quiz/Submit Score while questions display: none;</button><!--add click event to function quiz-->
+    <button class="Start-Submit">Start Quiz/Submit</button><!--add click event to function quiz-->
   </main>
 
-    <div class="Answer-Output" style="display: none;"><!--JS- display: block, then set it to be none again then back to block after each clicked answer-->
-      <p class="Poppin">Correct!/Wrong! display: block; change text depending on answer</p>
+    <div class="Answer-Output"><!--JS- display: block, then set it to be none again then back to block after each clicked answer-->
+      <p class="Poppin">Correct!/Wrong!</p>
     </div>
 
    <script src="./assets/js/script.js"></script><!--Had to place script at the bottom so the page could load first.-->
