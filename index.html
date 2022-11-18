@@ -28,12 +28,13 @@
       <button id="A4" class="Answer" onclick="CheckAnswer('D')">Answer 4</button>
     </div>
 
-    <form id="User" action="/action_page.php">
+    <form id="User">
       <label for="Int">Enter your initials.</label>
-      <input type="text" id="Int" name="quantity" min=1 max=5>
+      <input id="Int" type="text" minlength="2" maxlength="5">
+      <input id="Int-Btn" type="submit" value="Submit" onclick="return GameOver()">
     </form>
 
-    <button class="Start-Submit">Start Quiz/Submit</button><!--add click event to function quiz-->
+    <button class="Start-Quiz">Start Quiz</button><!--add click event to function quiz-->
   </main>
 
     <div class="Answer-Output"><!--JS- display: block, then set it to be none again then back to block after each clicked answer-->

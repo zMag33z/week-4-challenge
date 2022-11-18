@@ -1,15 +1,11 @@
-// Bad Practice
-// I went with manipulate current.
-
-// All variables claimed to attach to tags either by class or id.
-
+// Variables Claimed.  Target by class or id.
 var ViewHighscores = document.querySelector(".View-Highscores");
 var Timer = document.querySelector(".Timer");
 var Time = document.querySelector("#Time-Entered");
 var Main = document.querySelector("main")
 var IntroQuestion = document.querySelector("#Intro-Question");
 var Directions = document.querySelector("#Directions");
-var StartSubmit = document.querySelector(".Start-Submit");
+var StartQuiz = document.querySelector(".Start-Quiz");
 var AnswerContainer = document.querySelector(".Answer-Container");
 var Answer = document.querySelector(".Answer");
 var A1 = document.querySelector("#A1");
@@ -20,10 +16,7 @@ var UserInitials = document.querySelector("#User");
 var AnswerOutput = document.querySelector(".Answer-Output");
 var CorrectWrong = document.querySelector(".Poppin");
 
-
-
-
-
+//Question Key
 var Fragen = [
 {
 Question: '1.  Which of the following type of variable is visible everywhere in your JavaScript code?',
@@ -63,156 +56,124 @@ Correct: "D",
 }
 ]
 
+// User Key
+var Users = [
+{
+  Initials: "",
+  Score: "",
+}
+]
 
+// Event Listener target Start Quiz
+StartQuiz.addEventListener("click", QuizStart);
 
-
-
-StartSubmit.addEventListener("click", QuizStart);
-
+//Onload Display
 onload = function Welcome() {
-  //Content output during page load.
+
   AnswerContainer.setAttribute("style", "display: none;");
   UserInitials.setAttribute("style", "display: none;");
   AnswerOutput.setAttribute("style", "display: none;");
   ViewHighscores.textContent = "View Highscores";
-  Time.textContent = "0";
+  Time.textContent = secondsLeft;
   IntroQuestion.textContent = "Coding Quiz Challenge";
   Directions.textContent = "Try to answer the following code-related questions within the time limit.  Keep in mind that an incorrect answer will penalize your scoretime by 10 seconds.";
-  StartSubmit.textContent = "Start Quiz";
+  StartQuiz.textContent = "Start Quiz";
 }
+let secondsLeft = "0";
+// Start Quiz after eventlistener
+let TIMER;
 
 function QuizStart() {
   Time.textContent = secondsLeft;
   Directions.setAttribute("style", "display: none;");
-  StartSubmit.setAttribute("style", "display: none;");
+  StartQuiz.setAttribute("style", "display: none;");
   IntroQuestion.setAttribute("style", "font-size: 125%; text-align: left;");
   AnswerContainer.setAttribute("style", "display: block;");
-  TIMER = setInterval(setTime, 1000);
-setTime();
+  //TIMER = setInterval(setTime, 1000);
+//setTime();
 Questions();
 }
-
-let secondsLeft = 75;
+/*
+//Shitty timer can't get it to work
+let secondsLeft = "75";
 
 function setTime() {
   if(secondsLeft < 0) {
     secondsLeft--;
   }else{
     secondsLeft = 0;
-    GameOver();
+GameOver();
   }
 }
-
-const FragenIndex = Fragen.length - 1;
+*/
+// Questions display function
+const LastQuestion = Fragen.length -1;
 let QuestionOrder = 0;
 
 function Questions() {
-  let q = Fragen[QuestionOrder];
-  IntroQuestion.textContent = q.Question;
-  A1.textContent = q.A;
-  A2.textContent = q.B;
-  A3.textContent = q.C;
-  A4.textContent = q.D;
+  if(QuestionOrder === Fragen.length) {
+Finish();
+  }else{
+    console.log("should see this after 5")
+    AnswerOutput.setAttribute("style", "display: none;");
+    let q = Fragen[QuestionOrder];
+    IntroQuestion.textContent = q.Question;
+    A1.textContent = q.A;
+    A2.textContent = q.B;
+    A3.textContent = q.C;
+    A4.textContent = q.D;
+  }
 }
 
+// Check Answer after button clicked.  Targeted by HTML button tags.
 function CheckAnswer(answer) {
   if(Fragen[QuestionOrder].Correct == answer) {
     CorrectWrong.textContent = "Correct!";
     AnswerOutput.setAttribute("style", "display: block;");
-    ContinueQuestions();
+
+ContinueQuestions();
   }else{
     CorrectWrong.textContent = "Wrong!";
-    AnswerOutput.setAttribute("style", "display:block;");
-    secondsLeft - 10;
-    ContinueQuestions();
-  }
-  if(QuestionOrder = Fragen.length) {
-    Finish();
-  }
+    AnswerOutput.setAttribute("style", "display: block;");
+    secondsLeft = secondsLeft - 10;
 
+ContinueQuestions();
+  }
 }
 
+// After Check, back to Question display or exit to Finish.
 function ContinueQuestions() {
-  if(QuestionOrder < FragenIndex) {
+  if(QuestionOrder < Fragen.length) {
     QuestionOrder++;
-    Questions();
+    console.log(QuestionOrder, "did we add to QO");
+Questions();
+  }else{
+    console.log("did we get to else?");
   }
 }
 
+// Finish Enter Initials 
 function Finish() {
-
+  AnswerContainer.setAttribute("style", "display: none;");
+  IntroQuestion.textContent = "All done!";
+  UserInitials.setAttribute("style", "display: inline-block;");
+  Directions.textContent = "Your final score is\xa0" + Time.textContent;
+  //click submit head to next function.
 }
 
+// Game Over   Go Back try again or wipe scores.
 function GameOver() {
-
+  ViewHighscores.setAttribute("style", "visibility: hidden;");// only hidden to keep tag field spacing.
+  Timer.setAttribute("style", "visibility: hidden;");
+  UserInitials.setAttribute("style", "display: none;");
+  IntroQuestion.setAttribute("style", "font-size: 150%;");
+  IntroQuestion.textContent = "Highscores";
 }
 
+
+//if highscores not cleared allow to quiz start and keep global variable.
+//if there is a highscores record then append new p for each. will probably need variable for current user, "Style", "background-color: rgb(212,178,231);"
 function WipeScores() {
 
 }
 
-
-
-
-
-
-
-
-
-/*
-//Question page test for display code.
-
-for(var i = 0; i < Answers.length; i++) {
-    Answer.setAttribute("style", "display: none;");
-}
-
-// for timer we'll need to add to it Timer.textContent = whatever function is running it and subtracting from it.
-IntroQuestion.textContent = "Example example example example example example example example example example example example example example?";
-Main.setAttribute("style", "text-align: left;");
-
-var Correct = AnswerOutput;
-var Wrong = AnswerOutput;
-AnswerOutput.setAttribute("style", "display: block;");//when answer selected display block
-CorrectWrong.textContent = "Correct!";
-CorrectWrong.textContent = "Wrong!";
-//End of questions move to next function and pass time.
-*/
-
-
-/*
-//Finish Enter Initials
-A1.setAttribute("style", "display: none;");// can't get for to work four times for me ???
-A2.setAttribute("style", "display: none;");
-A3.setAttribute("style", "display: none;");
-A4.setAttribute("style", "display: none;");
-AnswerOutput.setAttribute("style", "display: none;");
-IntroQuestion.textContent = "All done!";
-Directions.textContent = "Your final score is\xa0" + Time.textContent;
-Directions.setAttribute("style", "display: block;");
-StartSubmit.setAttribute("style", "display: inline-block;");
-//click submit head to next function.
-*/
-
-
-/*
-//Highscores
-//Retrieve initals and score
-ViewHighscores.setAttribute("style", "visibility: hidden;");
-Timer.setAttribute("style", "visibility: hidden;");
-Directions.setAttribute("style", "display: none;");
-StartSubmit.setAttribute("style", "display: none;");
-UserInitials.setAttribute("style", "display: none;");
-IntroQuestion.textContent = "Highscores";
-IntroQuestion.appendChild(Scored);
-
-
-function countdown() {
-    var timeLeft = 75;
-  
-
-}
-*/
-
-
-//if there is a highscores record then append new p for each. will probably need variable for current user, "Style", "background-color: rgb(212,178,231);"
-//if highscores not cleared allow to quiz start and keep global variable.

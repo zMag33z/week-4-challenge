@@ -47,7 +47,11 @@ h2 {
     display: block;
 }
 
-.Start-Submit {
+.Answer:hover {
+    opacity: 0.6;
+}
+
+.Start-Quiz, #Int-Btn {
     margin-top: 15px;
     border-radius: 5px;
     min-width: 100px;
@@ -60,16 +64,13 @@ h2 {
     border-color: var(--Correct-Wrong);
 }
 
+/*Correct Wrong Pop Up*/
 .Poppin {
     margin-top: 10px;
     font-size: 110%;
     font-weight: lighter;
     font-style: italic;
     color: var(--Correct-Wrong);
-}
-
-.Answer:hover {
-    opacity: 0.6;
 }
 
 /*Input box*/
