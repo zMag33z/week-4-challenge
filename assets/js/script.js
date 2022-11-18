@@ -63,13 +63,13 @@ var Users = [
   Score: "",
 }
 ]
-
+/*
 // Event Listener target Start Quiz
 StartQuiz.addEventListener("click", QuizStart);
 
 //Onload Display
-onload = function Welcome() {
-
+window.onload = function Welcome() {
+  
   AnswerContainer.setAttribute("style", "display: none;");
   UserInitials.setAttribute("style", "display: none;");
   AnswerOutput.setAttribute("style", "display: none;");
@@ -105,13 +105,13 @@ function setTime() {
 GameOver();
   }
 }
-*/
+
 // Questions display function
 const LastQuestion = Fragen.length -1;
 let QuestionOrder = 0;
 
 function Questions() {
-  if(QuestionOrder === Fragen.length) {
+  if(QuestionOrder === Fragen.length) {   //Exit Questions
 Finish();
   }else{
     console.log("should see this after 5")
@@ -130,25 +130,14 @@ function CheckAnswer(answer) {
   if(Fragen[QuestionOrder].Correct == answer) {
     CorrectWrong.textContent = "Correct!";
     AnswerOutput.setAttribute("style", "display: block;");
-
-ContinueQuestions();
+    QuestionOrder++;
+Questions();
   }else{
     CorrectWrong.textContent = "Wrong!";
     AnswerOutput.setAttribute("style", "display: block;");
     secondsLeft = secondsLeft - 10;
-
-ContinueQuestions();
-  }
-}
-
-// After Check, back to Question display or exit to Finish.
-function ContinueQuestions() {
-  if(QuestionOrder < Fragen.length) {
     QuestionOrder++;
-    console.log(QuestionOrder, "did we add to QO");
 Questions();
-  }else{
-    console.log("did we get to else?");
   }
 }
 
@@ -158,6 +147,7 @@ function Finish() {
   IntroQuestion.textContent = "All done!";
   UserInitials.setAttribute("style", "display: inline-block;");
   Directions.textContent = "Your final score is\xa0" + Time.textContent;
+  console.log("finish?");
   //click submit head to next function.
 }
 
@@ -168,6 +158,7 @@ function GameOver() {
   UserInitials.setAttribute("style", "display: none;");
   IntroQuestion.setAttribute("style", "font-size: 150%;");
   IntroQuestion.textContent = "Highscores";
+  console.log("gavmeover?");
 }
 
 
@@ -177,3 +168,4 @@ function WipeScores() {
 
 }
 
+*/

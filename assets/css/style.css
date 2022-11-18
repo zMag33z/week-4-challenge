@@ -1,20 +1,11 @@
+/*Welcome to My CSS*/
 body {
     background-color: var(--Background);
 }
-
+/*holds the highscores button and timer*/
 header {
     height: 50px;
     margin-right: 10px;
-}
-
-main {
-    text-align: center;
-}
-
-main, .Answer-Output {
-    margin-left: auto;
-    margin-right: auto;
-    width: 580px;
 }
 
 .View-Highscores {
@@ -33,12 +24,25 @@ main, .Answer-Output {
     margin: 10px;
     font-weight: 550;
 }
-
+/*Holds Intro, Questions, Answers, Initial entry, and Scores.*/
+main {
+    text-align: center;
+}
+/*Containers to Equal margins and width*/
+main, .Answer-Output {
+    margin-left: auto;
+    margin-right: auto;
+    width: 580px;
+}
+/*Intro and Question*/
 h2 {
     margin: 15px 0 15px 0;
     font-size: 175%;
 }
-
+/*Choices Container*/
+.Answer-Container {
+    display: none;
+}
 .Answer {
     margin-bottom: 5px;
     border-radius: 5px;
@@ -46,11 +50,12 @@ h2 {
     color: var(--Button-Answer-font);
     display: block;
 }
-
+/*Visual confirmation of mouse and choice.*/
 .Answer:hover {
     opacity: 0.6;
 }
 
+/*Start Quiz and Initial Submit button style.*/
 .Start-Quiz, #Int-Btn {
     margin-top: 15px;
     border-radius: 5px;
@@ -58,13 +63,21 @@ h2 {
     background-color: var(--View-HSandButton-color); 
     color: var(--Button-Answer-font); 
 }
+/*Input box*/
+.Int {
+    border-color: var(--All-Other-Font);
+}
 
+input:focus, textarea:focus, select:focus {
+    outline: none;
+}
+/*Correct/Wrong Pop Up*/
 .Answer-Output {
     border-top-style: solid;
     border-color: var(--Correct-Wrong);
+    display: none;
 }
 
-/*Correct Wrong Pop Up*/
 .Poppin {
     margin-top: 10px;
     font-size: 110%;
@@ -73,13 +86,8 @@ h2 {
     color: var(--Correct-Wrong);
 }
 
-/*Input box*/
-.Int {
-    border-color: var(--All-Other-Font);
-}
-
-input:focus, textarea:focus, select:focus {
-    outline: none;
+#User {
+    display: none;
 }
 
 
