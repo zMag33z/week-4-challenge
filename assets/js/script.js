@@ -74,35 +74,44 @@ window.onload = function Welcome() {
   UserInitials.setAttribute("style", "display: none;");
   AnswerOutput.setAttribute("style", "display: none;");
   ViewHighscores.textContent = "View Highscores";
-  Time.textContent = secondsLeft;
+  Time.textContent = "0";
   IntroQuestion.textContent = "Coding Quiz Challenge";
   Directions.textContent = "Try to answer the following code-related questions within the time limit.  Keep in mind that an incorrect answer will penalize your scoretime by 10 seconds.";
   StartQuiz.textContent = "Start Quiz";
 }
-let secondsLeft = "0";
 
-let TIMER;
 // 3.  Start Quiz after eventlistener.
 function QuizStart() {
-  Time.textContent = secondsLeft;
   Main.setAttribute("style", "text-align: left;")
   Directions.setAttribute("style", "display: none;");
   StartQuiz.setAttribute("style", "display: none;");
   IntroQuestion.setAttribute("style", "font-size: 125%;");
   AnswerContainer.setAttribute("style", "display: block;");
-// implement timer
+timer();  
 Questions();
 }
 
-//timer function here
+ //timer function here
+var Score = 75;
 
+ function timer(){
+var oneSecond = setInterval(function(){
+      if (Score == 0){ 
+          clearInterval(oneSecond);
+          GameOver();
+      } else {
+        Score--;
+        Time.textContent = Score;
+      }
+  },1000)
+}
 
 // 4.  Question Display function to Question key.
 // 6.  Comes back to see if Key length met.
-let timerID = 0;
+
 function Questions() {
   if(QuestionOrder === Fragen.length) {   //Exit Questions
-    timerID = setTimeout(Finish, 1000);   //Slowed down Finish Display.  Didn't like the Answer Output under Finish.
+setTimeout(Finish, 1000);   //Slowed down Finish Display.  Didn't like the Answer Output under Finish.
 //Finish();
   }else{    
     let q = Fragen[QuestionOrder];
@@ -116,7 +125,7 @@ function Questions() {
 
 // 5.  Check Answer after button clicked.  Targeted by internal HTML button tags.
 function CheckAnswer(answer) {
-  timerID = setTimeout(Popped, 500); // Set off popped after 1 sec.
+setTimeout(Popped, 500); // Set off popped after 1 sec.
   if(Fragen[QuestionOrder].Correct == answer) {
     CorrectWrong.textContent = "Correct!";
     AnswerOutput.setAttribute("style", "display: block;");
@@ -125,7 +134,7 @@ Questions();
   }else{
     CorrectWrong.textContent = "Wrong!";
     AnswerOutput.setAttribute("style", "display: block;");
-    secondsLeft - 10;
+    Score - 10;
     QuestionOrder++;
 Questions();
   }
@@ -134,7 +143,6 @@ Questions();
 // 5.5 Answer Output disappears
 function Popped() {
   AnswerOutput.setAttribute("style", "display: none;");
-  return true;
  }
 
 // 7.  Finish Enter Initials and Submit score.  Next function by Submit button as eventlistner.
@@ -161,6 +169,7 @@ function GameOver() {
   Timer.setAttribute("style", "visibility: hidden;");
   Directions.setAttribute("style", "display: none;");
   StartQuiz.setAttribute("style", "display: none;");
+  AnswerContainer.setAttribute("style", "display: none;");
   UserInitials.setAttribute("style", "display: none;");
   IntroQuestion.setAttribute("style", "font-size: 175%;");
   IntroQuestion.textContent = "Highscores";

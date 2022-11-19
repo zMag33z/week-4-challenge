@@ -1,10 +1,11 @@
 /*Customize color scheme easily*/
 :root {
-    --Background: rgb(161, 206, 188);
-    --View-HSandButton-color: rgb(87, 10, 131);
-    --Button-Answer-font: white;
-    --Correct-Wrong: rgb(138, 78, 78);
-    --All-Other-Font: black;
+    --Background: rgb(30, 36, 33);
+    --View-HSandButton-color: rgb(236, 220, 77);
+    --Button-Answer-font: rgb(218, 116, 0);
+    --Correct-Wrong: white;
+
+    --All-Other-Font: rgb(80, 186, 221);
 }
 
 /*Preset to all object values.  Highscores needed transparent.  Went ahead and added to avoid any other upcoming transparency issues.*/
