@@ -7,19 +7,16 @@ header {
     height: 50px;
     margin-right: 10px;
 }
-
 .View-Highscores {
     float: left;
     border: none;
     outline: none;
     color: var(--View-HSandButton-color);
 }
-
 .Timer {
     float: right;
     width: 70px;
 }
-
 .View-Highscores, .Timer {
     margin: 10px;
     font-weight: 550;
@@ -54,7 +51,6 @@ h2 {
 .Answer:hover {
     opacity: 0.6;
 }
-
 /*Start Quiz and Initial Submit button style.*/
 .Start-Quiz, #Int-Btn {
     margin-top: 15px;
@@ -64,20 +60,23 @@ h2 {
     color: var(--Button-Answer-font); 
 }
 /*Input box*/
+#User {
+    display: none;
+}
 .Int {
     border-color: var(--All-Other-Font);
 }
-
 input:focus, textarea:focus, select:focus {
     outline: none;
 }
-/*Correct/Wrong Pop Up*/
+/*Correct/Wrong Pop Up Box*/
 .Answer-Output {
+    margin-top: 15px;
     border-top-style: solid;
     border-color: var(--Correct-Wrong);
     display: none;
 }
-
+/*Correct/Wrong text*/
 .Poppin {
     margin-top: 10px;
     font-size: 110%;
@@ -85,16 +84,3 @@ input:focus, textarea:focus, select:focus {
     font-style: italic;
     color: var(--Correct-Wrong);
 }
-
-#User {
-    display: none;
-}
-
-
-
-
-
-
-
-
-

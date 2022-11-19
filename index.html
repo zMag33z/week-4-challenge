@@ -12,35 +12,35 @@
 <body>
 
   <header>
-    <button class="View-Highscores">View Highscores</button><!--JS- Click event Highscores stored function-->
-    <p class="Timer">timer:&nbsp;&nbsp;<span id="Time-Entered">0 </span> </p><!--I supposed time function will be nested with quiz function that way it's continuously running-->
+    <button class="View-Highscores" onclick="GameOver()">Goes Directly to scorelist</button><!--JS- DO NOT FORGET Click event Highscores stored function-->
+    <p class="Timer">timer:&nbsp;&nbsp;<span id="Time-Entered">0 </span> </p><!--Field as is. Added time to span by ID-->
   </header>
 
-  <main><!--JS- turn off text-alightcenter----text-align: in function quiz-->
-    <h2 id="Intro-Question">Coding Quiz Challenge</h2><!--JS- reduce font size to 125%-->
-    <!--JS- display: none to p-class-directions-->
-    <p id="Directions">Try to answer the following code-related questions within the time limit.  Keep in mind that an incorrect answer will penalize your scoretime by 10 seconds.</p>
+  <main><!--Quiz- JS- text-align: left;.  No point to contain H2, P, Start button.  Only P and Start disappears and H2 changes text and size-->
     
-    <div class="Answer-Container">
-      <button id="A1" class="Answer" onclick="CheckAnswer('A')">Answer 1</button>
-      <button id="A2" class="Answer" onclick="CheckAnswer('B')">Answer 2</button>
-      <button id="A3" class="Answer" onclick="CheckAnswer('C')">Answer 3</button>
-      <button id="A4" class="Answer" onclick="CheckAnswer('D')">Answer 4</button>
+    <h2 id="Intro-Question">Intro and Question</h2><!--Quiz- JS- reduce font size to 125%-->
+    <p id="Directions">Directions before Quiz start</p><!--Quiz- JS- display: none;-->
+    <button class="Start-Quiz">Start Quiz</button><!--add click event to function quiz-->
+
+    <div class="Answer-Container"><!--Quiz- JS- display: block;-->
+      <button id="A1" class="Answer" onclick="CheckAnswer('A')">Fragen Key attachment by ID</button>
+      <button id="A2" class="Answer" onclick="CheckAnswer('B')">Fragen Key attachment by ID</button>
+      <button id="A3" class="Answer" onclick="CheckAnswer('C')">Fragen Key attachment by ID</button>
+      <button id="A4" class="Answer" onclick="CheckAnswer('D')">Fragen Key attachment by ID</button>
     </div>
 
-    <form id="User">
-      <label for="Int">Enter your initials.</label>
-      <input id="Int" type="text" minlength="2" maxlength="5">
-      <input id="Int-Btn" type="submit" value="Submit" onclick="return GameOver()">
+    <form id="User"><!--Quiz- JS- display: none; Finish- JS- -->
+      <label for="Int">Enter Initials</label><!--Field as is. No change.-->
+      <input id="Int" type="text" minlength="2" maxlength="5" required>
+      <input id="Int-Btn" type="submit" value="Submit">
     </form>
 
-    <button class="Start-Quiz">Start Quiz</button><!--add click event to function quiz-->
   </main>
 
-    <div class="Answer-Output"><!--JS- display: block, then set it to be none again then back to block after each clicked answer-->
-      <p class="Poppin">Correct!/Wrong!</p>
+    <div class="Answer-Output"><!--Quiz- JS- Toggle with setTimeout after answered-->
+      <p class="Poppin">Correct!/Wrong!</p><!--Quiz- JS- Depending on answer change text-->
     </div>
 
-   <script src="./assets/js/script.js"></script><!--Had to place script at the bottom so the page could load first.-->
+   <script src="./assets/js/script.js"></script><!--Bottom placement-->
 </body>
 </html>

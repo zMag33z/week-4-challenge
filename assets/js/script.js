@@ -56,20 +56,20 @@ Correct: "D",
 }
 ]
 
-// User Key
-var Users = [
-{
-  Initials: "",
-  Score: "",
-}
-]
-/*
-// Event Listener target Start Quiz
-StartQuiz.addEventListener("click", QuizStart);
+//These are my exit compared to one another after cycling.
+const LastQuestion = Fragen.length -1;
+let QuestionOrder = 0;
 
-//Onload Display
+// 2.  Event Listener target Start Quiz
+StartQuiz.addEventListener("click", QuizStart);
+// 8.  Event Lister for Initial and Score Submission.
+UserInitials.addEventListener("submit", function(e) {
+e.preventDefault();
+GameOver();
+});
+
+// 1.  Onload Display
 window.onload = function Welcome() {
-  
   AnswerContainer.setAttribute("style", "display: none;");
   UserInitials.setAttribute("style", "display: none;");
   AnswerOutput.setAttribute("style", "display: none;");
@@ -80,42 +80,31 @@ window.onload = function Welcome() {
   StartQuiz.textContent = "Start Quiz";
 }
 let secondsLeft = "0";
-// Start Quiz after eventlistener
-let TIMER;
 
+let TIMER;
+// 3.  Start Quiz after eventlistener.
 function QuizStart() {
   Time.textContent = secondsLeft;
+  Main.setAttribute("style", "text-align: left;")
   Directions.setAttribute("style", "display: none;");
   StartQuiz.setAttribute("style", "display: none;");
-  IntroQuestion.setAttribute("style", "font-size: 125%; text-align: left;");
+  IntroQuestion.setAttribute("style", "font-size: 125%;");
   AnswerContainer.setAttribute("style", "display: block;");
-  //TIMER = setInterval(setTime, 1000);
-//setTime();
+// implement timer
 Questions();
 }
-/*
-//Shitty timer can't get it to work
-let secondsLeft = "75";
 
-function setTime() {
-  if(secondsLeft < 0) {
-    secondsLeft--;
-  }else{
-    secondsLeft = 0;
-GameOver();
-  }
-}
+//timer function here
 
-// Questions display function
-const LastQuestion = Fragen.length -1;
-let QuestionOrder = 0;
 
+// 4.  Question Display function to Question key.
+// 6.  Comes back to see if Key length met.
+let timerID = 0;
 function Questions() {
   if(QuestionOrder === Fragen.length) {   //Exit Questions
-Finish();
-  }else{
-    console.log("should see this after 5")
-    AnswerOutput.setAttribute("style", "display: none;");
+    timerID = setTimeout(Finish, 1000);   //Slowed down Finish Display.  Didn't like the Answer Output under Finish.
+//Finish();
+  }else{    
     let q = Fragen[QuestionOrder];
     IntroQuestion.textContent = q.Question;
     A1.textContent = q.A;
@@ -125,8 +114,9 @@ Finish();
   }
 }
 
-// Check Answer after button clicked.  Targeted by HTML button tags.
+// 5.  Check Answer after button clicked.  Targeted by internal HTML button tags.
 function CheckAnswer(answer) {
+  timerID = setTimeout(Popped, 500); // Set off popped after 1 sec.
   if(Fragen[QuestionOrder].Correct == answer) {
     CorrectWrong.textContent = "Correct!";
     AnswerOutput.setAttribute("style", "display: block;");
@@ -135,37 +125,50 @@ Questions();
   }else{
     CorrectWrong.textContent = "Wrong!";
     AnswerOutput.setAttribute("style", "display: block;");
-    secondsLeft = secondsLeft - 10;
+    secondsLeft - 10;
     QuestionOrder++;
 Questions();
   }
 }
 
-// Finish Enter Initials 
+// 5.5 Answer Output disappears
+function Popped() {
+  AnswerOutput.setAttribute("style", "display: none;");
+  return true;
+ }
+
+// 7.  Finish Enter Initials and Submit score.  Next function by Submit button as eventlistner.
+// Possibly slow load on this til pop up disappears.
 function Finish() {
-  AnswerContainer.setAttribute("style", "display: none;");
-  IntroQuestion.textContent = "All done!";
+  Directions.setAttribute("style", "display: block;")
+  AnswerContainer.setAttribute("style", "display: none;");  
   UserInitials.setAttribute("style", "display: inline-block;");
-  Directions.textContent = "Your final score is\xa0" + Time.textContent;
-  console.log("finish?");
-  //click submit head to next function.
+  IntroQuestion.textContent = "All done!";
+  Directions.textContent = "Your final score is\xa0" + Time.textContent + ".";
 }
 
-// Game Over   Go Back try again or wipe scores.
+// User Key
+var Users = [
+  {
+    Initials: "",
+    Score: "",
+  }
+  ]
+  
+// 9.  Game Over   Go Back try again or wipe scores.
 function GameOver() {
   ViewHighscores.setAttribute("style", "visibility: hidden;");// only hidden to keep tag field spacing.
   Timer.setAttribute("style", "visibility: hidden;");
+  Directions.setAttribute("style", "display: none;");
+  StartQuiz.setAttribute("style", "display: none;");
   UserInitials.setAttribute("style", "display: none;");
-  IntroQuestion.setAttribute("style", "font-size: 150%;");
+  IntroQuestion.setAttribute("style", "font-size: 175%;");
   IntroQuestion.textContent = "Highscores";
-  console.log("gavmeover?");
 }
 
-
-//if highscores not cleared allow to quiz start and keep global variable.
+//if highscores not cleared allow to quizstart and keep global variable.
 //if there is a highscores record then append new p for each. will probably need variable for current user, "Style", "background-color: rgb(212,178,231);"
 function WipeScores() {
 
 }
 
-*/

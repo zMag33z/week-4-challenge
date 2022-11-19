@@ -3,11 +3,11 @@
     --Background: rgb(161, 206, 188);
     --View-HSandButton-color: rgb(87, 10, 131);
     --Button-Answer-font: white;
-    --Correct-Wrong: rgb(200, 200, 200);
+    --Correct-Wrong: rgb(138, 78, 78);
     --All-Other-Font: black;
-
 }
 
+/*Preset to all object values.  Highscores needed transparent.  Went ahead and added to avoid any other upcoming transparency issues.*/
 * {    
     margin: 0;
     padding: 0;
