@@ -1,3 +1,6 @@
+/*Excuse within the Functions, the push to Next Functions being aligned all the way to left.
+Was easier for eye targeting the flow.  Left as is for future reference.*/
+
 // Variables Claimed.  Target by class or id.
 var ViewHighscores = document.querySelector(".View-Highscores");
 var Timer = document.querySelector(".Timer");
@@ -17,7 +20,7 @@ var AnswerOutput = document.querySelector(".Answer-Output");
 var CorrectWrong = document.querySelector(".Poppin");
 
 //Question Key
-var Fragen = [
+var Fragen = [  //German: Fragen means Questions.  Needed another question variable name.
 {
 Question: '1.  Which of the following type of variable is visible everywhere in your JavaScript code?',
 A: 'a - global variable',
@@ -62,6 +65,7 @@ let QuestionOrder = 0;
 
 // 2.  Event Listener target Start Quiz
 StartQuiz.addEventListener("click", QuizStart);
+
 // 8.  Event Lister for Initial and Score Submission.
 UserInitials.addEventListener("submit", function(e) {
 e.preventDefault();
@@ -91,14 +95,14 @@ timer();
 Questions();
 }
 
- //timer function here
+ // 3.5 timer function here
 var Score = 75;
-
+var oneSecond;
  function timer(){
-var oneSecond = setInterval(function(){
-      if (Score == 0){ 
-          clearInterval(oneSecond);
-          GameOver();
+oneSecond = setInterval(function(){
+      if (Score === 0){
+    clearInterval(oneSecond);
+    GameOver();
       } else {
         Score--;
         Time.textContent = Score;
@@ -108,11 +112,10 @@ var oneSecond = setInterval(function(){
 
 // 4.  Question Display function to Question key.
 // 6.  Comes back to see if Key length met.
-
 function Questions() {
-  if(QuestionOrder === Fragen.length) {   //Exit Questions
+  if(QuestionOrder === Fragen.length) {  //Exit Questions
+clearInterval(oneSecond);   //Stopped timer here to not interfere with true time for User with delayed Finish display.
 setTimeout(Finish, 1000);   //Slowed down Finish Display.  Didn't like the Answer Output under Finish.
-//Finish();
   }else{    
     let q = Fragen[QuestionOrder];
     IntroQuestion.textContent = q.Question;
@@ -134,9 +137,10 @@ Questions();
   }else{
     CorrectWrong.textContent = "Wrong!";
     AnswerOutput.setAttribute("style", "display: block;");
-    Score - 10;
-    QuestionOrder++;
-Questions();
+    Score = Score - 10; // I don't understand why I had to present it with Score = Score - 10; and not just Score - 10; ???????  
+    QuestionOrder++;    //I mean I kind of do with it being more of a represented mathematical formula.  
+    console.log(Score); //But confusing being the time function doesn't need it.  
+Questions();            //Is it because the time function deals with that variable directly versuses being drug into another function after change?
   }
 }
 
