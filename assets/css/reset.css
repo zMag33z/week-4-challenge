@@ -1,10 +1,10 @@
 /*Customize color scheme easily*/
 :root {
-    --Background: rgb(30, 36, 33);
+    --Background: rgb(30, 30, 30);
     --View-HSandButton-color: rgb(236, 220, 77);
     --Button-Answer-font: rgb(218, 116, 0);
     --Correct-Wrong: white;
-
+    --Score-List: rgb(60,60,60);
     --All-Other-Font: rgb(80, 186, 221);
 }
 

@@ -37,8 +37,8 @@ h2 {
     font-size: 175%;
 }
 /*Choices Container*/
-.Answer-Container {
-    display: none;
+#Answer-Container {
+    text-align: center;
 }
 .Answer {
     margin-bottom: 5px;
@@ -48,7 +48,7 @@ h2 {
     display: block;
 }
 /*Visual confirmation of mouse and choice.*/
-.Answer:hover {
+.Start-Quiz:hover, .Clear-Scores:hover, #Int-Btn:hover, .Answer:hover {
     opacity: 0.6;
 }
 /*Start Quiz and Initial Submit button style.*/
@@ -57,12 +57,10 @@ h2 {
     border-radius: 5px;
     padding: 0px 10px 0px 10px;
     background-color: var(--View-HSandButton-color); 
-    color: var(--Button-Answer-font); 
+    color: var(--Button-Answer-font);
+    
 }
 /*Input box*/
-#User {
-    display: none;
-}
 .Int {
     border-color: var(--All-Other-Font);
 }
@@ -74,7 +72,6 @@ input:focus, textarea:focus, select:focus {
     margin-top: 15px;
     border-top-style: solid;
     border-color: var(--Correct-Wrong);
-    display: none;
 }
 /*Correct/Wrong text*/
 .Poppin {
@@ -85,5 +82,20 @@ input:focus, textarea:focus, select:focus {
     color: var(--Correct-Wrong);
 }
 .Scores {
-    background-color:blueviolet;
+    background-color:var(--Score-List);
+}
+/*Personalized footer*/
+footer{
+    width: 100%;
+    position:fixed;
+    bottom:0;
+    margin-bottom: 15px;
+    text-align: center;   
+}
+h4 {
+    font-size: 80%;
+}
+/*Toggle for removing class rather than setAttribute*/
+.Toggle-Display {
+    display: none;
 }

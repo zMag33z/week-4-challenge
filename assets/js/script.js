@@ -9,7 +9,7 @@ var Main = document.querySelector("main")
 var IntroQuestion = document.querySelector("#Intro-Question");
 var Directions = document.querySelector("#Directions");
 var StartQuiz = document.querySelector(".Start-Quiz");
-var AnswerContainer = document.querySelector(".Answer-Container");
+var AnswerContainer = document.querySelector("#Answer-Container");
 var Answer = document.querySelector(".Answer");
 var A1 = document.querySelector("#A1");
 var A2 = document.querySelector("#A2");
@@ -63,46 +63,37 @@ Correct: "D",
 ]
 
 
-// 2.  Event Listener target Start Quiz.  Second Click event Reload page.
+// 2.  Event Listener target Start Quiz.  Second Click event Reload page.  clickCount variable to keep count.
 let clickCount = 1;
 
 StartQuiz.addEventListener("click", function() {
     if(clickCount === 2) {
       window.location.reload();
     } else {
-      QuizStart();     
+QuizStart();     
     }
     clickCount++;
 });
 
-
-
-// 10.  Event Listener for ClearScores function
-ClearScores.addEventListener("click", function() {
-  localStorage.clear();
-});
-
-
 // 1.  Onload Display
 window.onload = function Welcome() {
-  ClearScores.setAttribute("style", "display: none;");
-  AnswerContainer.setAttribute("style", "display: none;");
-  UserInitials.setAttribute("style", "display: none;");
-  AnswerOutput.setAttribute("style", "display: none;");
   ViewHighscores.textContent = "View Highscores";
   Time.textContent = "0";
   IntroQuestion.textContent = "Coding Quiz Challenge";
   Directions.textContent = "Try to answer the following code-related questions within the time limit.  Keep in mind that an incorrect answer will penalize your scoretime by 10 seconds.";
   StartQuiz.textContent = "Start Quiz";
+  IntroQuestion.classList.toggle("Toggle-Display", false);  // Went with class toggle to seperate setAttribute style from display.
+  Directions.classList.toggle("Toggle-Display", false);
+  StartQuiz.classList.toggle("Toggle-Display", false);
 }
 
 // 3.  Start Quiz after eventlistener.
 function QuizStart() {
   Main.setAttribute("style", "text-align: left;");
-  Directions.setAttribute("style", "display: none;");
-  StartQuiz.setAttribute("style", "display: none;");
-  IntroQuestion.setAttribute("style", "font-size: 125%;");
-  AnswerContainer.setAttribute("style", "display: block;");
+  IntroQuestion.setAttribute("style", "height: 84px; font-size: 125%;");
+  Directions.classList.toggle("Toggle-Display", true);
+  StartQuiz.classList.toggle("Toggle-Display", true);  
+  AnswerContainer.classList.toggle("Toggle-Display", false);
 timer();  
 Questions();
 }
@@ -125,8 +116,7 @@ GameOver();
 
 // 4.  Question Display function to Question key.
 // 6.  Comes back to see if Key length met.
-//These are my exit compared to one another after cycling.
-const LastQuestion = Fragen.length -1;
+const LastQuestion = Fragen.length -1; //These are my exit compared to one another after cycling.
 let QuestionOrder = 0;
 
 function Questions() {
@@ -148,64 +138,78 @@ function CheckAnswer(answer) {
 setTimeout(Popped, 500); // Set off popped after 1 sec.
   if(Fragen[QuestionOrder].Correct == answer) {
     CorrectWrong.textContent = "Correct!";
-    AnswerOutput.setAttribute("style", "display: block;");
+    AnswerOutput.classList.toggle("Toggle-Display", false);
     QuestionOrder++;
 Questions();
   }else{
     CorrectWrong.textContent = "Wrong!";
-    AnswerOutput.setAttribute("style", "display: block;");
+    AnswerOutput.classList.toggle("Toggle-Display", false);
     Score = Score - 10;
     Time.textContent = Score;  // Needed to capture final score text output.
     QuestionOrder++;
-    Questions();
+Questions();
   }
 }
 
 // 5.5  Answer Output disappears
 function Popped() {
-  AnswerOutput.setAttribute("style", "display: none;");
+  AnswerOutput.classList.toggle("Toggle-Display", true);
  }
-
-// 7.  Finish Enter Initials and Submit score.  Next GameOver function by Submit button as eventlistner.
-function Finish() {
-  Directions.setAttribute("style", "display: block;")
-  AnswerContainer.setAttribute("style", "display: none;");  
-  UserInitials.setAttribute("style", "display: inline-block;");
-  IntroQuestion.textContent = "All done!";
-  Directions.innerHTML = "Your final score is " + Time.textContent + ".";
-}
 
 // 8.  Event Lister for Initial and Score Submission to GameOver function. JSON Parse method included here.  Had to create function any how to prevent default.  May as well use it.
 UserInitials.addEventListener("submit", function(e) {
   e.preventDefault();
+  
   // User Key
-  var Users = 
+  var Users =  
     {
       InitialsInput: InitialsInput.value,
       Score: Score
     };
+    
     localStorage.setItem("Users", JSON.stringify(Users));
-  GameOver();
+GameOver();
   });
+
+// 7.  Finish Enter Initials and Submit score.  Next GameOver function by Submit button as eventlistner.
+function Finish() {
+  IntroQuestion.setAttribute("style", "height: auto;")
+  IntroQuestion.textContent = "All done!";
+  Directions.innerHTML = "Your final score is " + Time.textContent + ".";
+  Directions.classList.toggle("Toggle-Display", false);
+  AnswerContainer.classList.toggle("Toggle-Display", true);  
+  UserInitials.classList.toggle("Toggle-Display", false);
+}
+
+
+
+// 10.  Event Listener for ClearScores function
+ClearScores.addEventListener("click", function() {
+    DisplayScore.remove();
+    localStorage.clear();
+});
 
 // 9.  Game Over   Go Back try again or wipe scores.
 function GameOver() {
-  ViewHighscores.setAttribute("style", "visibility: hidden;");// only hidden to keep tag field spacing.
+  ViewHighscores.setAttribute("style", "visibility: hidden;");// only hidden to keep object field spacing.
   Timer.setAttribute("style", "visibility: hidden;");
-  Main.setAttribute("style", "text-align: center;");
-  Directions.setAttribute("style", "display: none;");
-  StartQuiz.setAttribute("style", "display: none;");
-  AnswerContainer.setAttribute("style", "display: none;");
-  UserInitials.setAttribute("style", "display: none;");
+  Main.setAttribute("style", "text-align: center; width: 284px;");
   IntroQuestion.setAttribute("style", "font-size: 175%;");
   StartQuiz.setAttribute("style", "display: inline-block;");
   ClearScores.setAttribute("style", "display: inline-block;");
+  IntroQuestion.textContent = "All done!";
   IntroQuestion.textContent = "Highscores";
   StartQuiz.textContent = "Go Back";
+  Directions.classList.toggle("Toggle-Display", true);
+  StartQuiz.classList.toggle("Toggle-Display", true);
+  AnswerContainer.classList.toggle("Toggle-Display", true);
+  UserInitials.classList.toggle("Toggle-Display", true);
   var RecordPull = JSON.parse(localStorage.getItem("Users"));
-  DisplayScore.innerHTML = RecordPull.InitialsInput + " - " + RecordPull.Score;
-  //parentGuest.parentNode.insertBefore(childGuest, parentGuest.nextSibling);
-  IntroQuestion.parentNode.insertBefore(DisplayScore, IntroQuestion.nextSibling);
-  //Main.appendChild(DisplayScore);
+  DisplayScore.classList.add("Scores");
+  DisplayScore.innerHTML = RecordPull.InitialsInput + " - " + RecordPull.Score;  
+  IntroQuestion.parentNode.insertBefore(DisplayScore, IntroQuestion.nextSibling);  //For future reference:  parentGuest.parentNode.insertBefore(childGuest, parentGuest.nextSibling);
+
+
+
   console.log(localStorage);
 }
