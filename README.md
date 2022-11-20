@@ -32,7 +32,9 @@ Welcome to the Coding Quiz Challenge.  Just a five question quiz on basic topics
 ## Credits
 
 [Tutorials Point](https://www.tutorialspoint.com/javascript/javascript_online_quiz.htm)(Questions used)
+
 [Code Explained](https://www.youtube.com/watch?v=49pYIMygIcU&t=1431s)(Key and Function step help)
+
 ## This site.
 
 [Password Generator](https://zmag33z.github.io/week-4-challenge/)

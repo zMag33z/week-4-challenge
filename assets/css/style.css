@@ -33,7 +33,7 @@ main, .Answer-Output {
 }
 /*Intro and Question*/
 h2 {
-    margin: 15px 0 15px 0;
+    margin: 15px 0px 15px 0px;
     font-size: 175%;
 }
 /*Choices Container*/
@@ -52,10 +52,10 @@ h2 {
     opacity: 0.6;
 }
 /*Start Quiz and Initial Submit button style.*/
-.Start-Quiz, #Int-Btn {
+.Start-Quiz, .Clear-Scores, #Int-Btn, .Answer {
     margin-top: 15px;
     border-radius: 5px;
-    min-width: 100px;
+    padding: 0px 10px 0px 10px;
     background-color: var(--View-HSandButton-color); 
     color: var(--Button-Answer-font); 
 }
@@ -83,4 +83,7 @@ input:focus, textarea:focus, select:focus {
     font-weight: lighter;
     font-style: italic;
     color: var(--Correct-Wrong);
+}
+.Scores {
+    background-color:blueviolet;
 }

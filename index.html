@@ -16,12 +16,15 @@
     <p class="Timer">timer:&nbsp;&nbsp;<span id="Time-Entered">0 </span> </p><!--Field as is. Added time to span by ID-->
   </header>
 
-  <main><!--Quiz- JS- text-align: left;.  No point to contain H2, P, Start button.  Only P and Start disappears and H2 changes text and size-->
+  <main><!--Intro- JS- text-align: center; Quiz- JS- text-align: left;-->
     
-    <h2 id="Intro-Question">Intro and Question</h2><!--Quiz- JS- reduce font size to 125%-->
-    <p id="Directions">Directions before Quiz start</p><!--Quiz- JS- display: none;-->
-    <button class="Start-Quiz">Start Quiz</button><!--add click event to function quiz-->
-
+    <div>
+      <h2 id="Intro-Question">Intro and Question</h2><!--Quiz- JS- reduce font size to 125%-->
+      <p id="Directions">Directions before Quiz start</p><!--Quiz- JS- display: none;-->
+      <button class="Start-Quiz">Start Quiz</button><!--JS- added click event to function QuizStart-->
+      <button class="Clear-Scores">Clear Highscores</button><!--Js- added click event to function ClearScores-->
+    </div>
+    
     <div class="Answer-Container"><!--Quiz- JS- display: block;-->
       <button id="A1" class="Answer" onclick="CheckAnswer('A')">Fragen Key attachment by ID</button>
       <button id="A2" class="Answer" onclick="CheckAnswer('B')">Fragen Key attachment by ID</button>
@@ -31,7 +34,7 @@
 
     <form id="User"><!--Quiz- JS- display: none; Finish- JS- -->
       <label for="Int">Enter Initials</label><!--Field as is. No change.-->
-      <input id="Int" type="text" minlength="2" maxlength="5" required>
+      <input id="Int" type="text" minlength="2" maxlength="5" autocomplete="off" required>
       <input id="Int-Btn" type="submit" value="Submit">
     </form>
 

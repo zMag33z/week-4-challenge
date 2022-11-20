@@ -15,9 +15,12 @@ var A1 = document.querySelector("#A1");
 var A2 = document.querySelector("#A2");
 var A3 = document.querySelector("#A3");
 var A4 = document.querySelector("#A4");
-var UserInitials = document.querySelector("#User");
 var AnswerOutput = document.querySelector(".Answer-Output");
 var CorrectWrong = document.querySelector(".Poppin");
+var UserInitials = document.querySelector("#User");
+var InitialsInput = document.querySelector("#Int");
+var ClearScores = document.querySelector(".Clear-Scores");
+var DisplayScore = document.createElement("p");
 
 //Question Key
 var Fragen = [  //German: Fragen means Questions.  Needed another question variable name.
@@ -59,21 +62,30 @@ Correct: "D",
 }
 ]
 
-//These are my exit compared to one another after cycling.
-const LastQuestion = Fragen.length -1;
-let QuestionOrder = 0;
 
-// 2.  Event Listener target Start Quiz
-StartQuiz.addEventListener("click", QuizStart);
+// 2.  Event Listener target Start Quiz.  Second Click event Reload page.
+let clickCount = 1;
 
-// 8.  Event Lister for Initial and Score Submission.
-UserInitials.addEventListener("submit", function(e) {
-e.preventDefault();
-GameOver();
+StartQuiz.addEventListener("click", function() {
+    if(clickCount === 2) {
+      window.location.reload();
+    } else {
+      QuizStart();     
+    }
+    clickCount++;
 });
+
+
+
+// 10.  Event Listener for ClearScores function
+ClearScores.addEventListener("click", function() {
+  localStorage.clear();
+});
+
 
 // 1.  Onload Display
 window.onload = function Welcome() {
+  ClearScores.setAttribute("style", "display: none;");
   AnswerContainer.setAttribute("style", "display: none;");
   UserInitials.setAttribute("style", "display: none;");
   AnswerOutput.setAttribute("style", "display: none;");
@@ -86,7 +98,7 @@ window.onload = function Welcome() {
 
 // 3.  Start Quiz after eventlistener.
 function QuizStart() {
-  Main.setAttribute("style", "text-align: left;")
+  Main.setAttribute("style", "text-align: left;");
   Directions.setAttribute("style", "display: none;");
   StartQuiz.setAttribute("style", "display: none;");
   IntroQuestion.setAttribute("style", "font-size: 125%;");
@@ -96,13 +108,14 @@ Questions();
 }
 
  // 3.5 timer function here
-var Score = 75;
 var oneSecond;
+let Score = 75;
+
  function timer(){
-oneSecond = setInterval(function(){
+  oneSecond = setInterval(function(){
       if (Score === 0){
-    clearInterval(oneSecond);
-    GameOver();
+clearInterval(oneSecond);
+GameOver();
       } else {
         Score--;
         Time.textContent = Score;
@@ -112,10 +125,14 @@ oneSecond = setInterval(function(){
 
 // 4.  Question Display function to Question key.
 // 6.  Comes back to see if Key length met.
+//These are my exit compared to one another after cycling.
+const LastQuestion = Fragen.length -1;
+let QuestionOrder = 0;
+
 function Questions() {
   if(QuestionOrder === Fragen.length) {  //Exit Questions
 clearInterval(oneSecond);   //Stopped timer here to not interfere with true time for User with delayed Finish display.
-setTimeout(Finish, 1000);   //Slowed down Finish Display.  Didn't like the Answer Output under Finish.
+setTimeout(Finish, 1000);   //Slowed down Finish Display.  Didn't like the Answer Output being displayed during Finish function.
   }else{    
     let q = Fragen[QuestionOrder];
     IntroQuestion.textContent = q.Question;
@@ -137,51 +154,58 @@ Questions();
   }else{
     CorrectWrong.textContent = "Wrong!";
     AnswerOutput.setAttribute("style", "display: block;");
-    Score = Score - 10; // I don't understand why I had to present it with Score = Score - 10; and not just Score - 10; ???????  
-    QuestionOrder++;    //I mean I kind of do with it being more of a represented mathematical formula.  
-    console.log(Score); //But confusing being the time function doesn't need it.  
-Questions();            //Is it because the time function deals with that variable directly versuses being drug into another function after change?
+    Score = Score - 10;
+    Time.textContent = Score;  // Needed to capture final score text output.
+    QuestionOrder++;
+    Questions();
   }
 }
 
-// 5.5 Answer Output disappears
+// 5.5  Answer Output disappears
 function Popped() {
   AnswerOutput.setAttribute("style", "display: none;");
  }
 
-// 7.  Finish Enter Initials and Submit score.  Next function by Submit button as eventlistner.
-// Possibly slow load on this til pop up disappears.
+// 7.  Finish Enter Initials and Submit score.  Next GameOver function by Submit button as eventlistner.
 function Finish() {
   Directions.setAttribute("style", "display: block;")
   AnswerContainer.setAttribute("style", "display: none;");  
   UserInitials.setAttribute("style", "display: inline-block;");
   IntroQuestion.textContent = "All done!";
-  Directions.textContent = "Your final score is\xa0" + Time.textContent + ".";
+  Directions.innerHTML = "Your final score is " + Time.textContent + ".";
 }
 
-// User Key
-var Users = [
-  {
-    Initials: "",
-    Score: "",
-  }
-  ]
-  
+// 8.  Event Lister for Initial and Score Submission to GameOver function. JSON Parse method included here.  Had to create function any how to prevent default.  May as well use it.
+UserInitials.addEventListener("submit", function(e) {
+  e.preventDefault();
+  // User Key
+  var Users = 
+    {
+      InitialsInput: InitialsInput.value,
+      Score: Score
+    };
+    localStorage.setItem("Users", JSON.stringify(Users));
+  GameOver();
+  });
+
 // 9.  Game Over   Go Back try again or wipe scores.
 function GameOver() {
   ViewHighscores.setAttribute("style", "visibility: hidden;");// only hidden to keep tag field spacing.
   Timer.setAttribute("style", "visibility: hidden;");
+  Main.setAttribute("style", "text-align: center;");
   Directions.setAttribute("style", "display: none;");
   StartQuiz.setAttribute("style", "display: none;");
   AnswerContainer.setAttribute("style", "display: none;");
   UserInitials.setAttribute("style", "display: none;");
   IntroQuestion.setAttribute("style", "font-size: 175%;");
+  StartQuiz.setAttribute("style", "display: inline-block;");
+  ClearScores.setAttribute("style", "display: inline-block;");
   IntroQuestion.textContent = "Highscores";
+  StartQuiz.textContent = "Go Back";
+  var RecordPull = JSON.parse(localStorage.getItem("Users"));
+  DisplayScore.innerHTML = RecordPull.InitialsInput + " - " + RecordPull.Score;
+  //parentGuest.parentNode.insertBefore(childGuest, parentGuest.nextSibling);
+  IntroQuestion.parentNode.insertBefore(DisplayScore, IntroQuestion.nextSibling);
+  //Main.appendChild(DisplayScore);
+  console.log(localStorage);
 }
-
-//if highscores not cleared allow to quizstart and keep global variable.
-//if there is a highscores record then append new p for each. will probably need variable for current user, "Style", "background-color: rgb(212,178,231);"
-function WipeScores() {
-
-}
-
