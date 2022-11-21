@@ -19,15 +19,7 @@ N/A
 
 Welcome to the Coding Quiz Challenge.  Just a five question quiz on basic topics over Javascript.  Time is essential for it is your score.  As you answer questions the time counts down.  If you get an answer incorrect.  You will be penalized ten seconds from the time.  At the end of the Quiz you may record your highscore.
 
-![Password Generator](./assets/images/PasswordGenerator.png)
-
-![Beginning of Prompt](./assets/images/firstprompt.png)
-
-![Invalid prompt 1](./assets/images/badprompt1.png)
-
-![Invalid prompt 2](./assets/images/badprompt2.png)
-
-![Follow the Console Log.](./assets/images/console.png)
+### Site not working properly.  No screenshots available.
 
 ## Credits
 
