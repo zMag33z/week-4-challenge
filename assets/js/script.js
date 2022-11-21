@@ -158,18 +158,9 @@ function Popped() {
 
 // 8.  Event Lister for Initial and Score Submission to GameOver function. JSON Parse method included here.  Had to create function any how to prevent default.  May as well use it.
 UserInitials.addEventListener("submit", function(e) {
-  e.preventDefault();
-  
-  // User Key
-  var Users =  
-    {
-      InitialsInput: InitialsInput.value,
-      Score: Score
-    };
-    
-    localStorage.setItem("Users", JSON.stringify(Users));
-GameOver();
-  });
+e.preventDefault();
+setUserScore();
+});
 
 // 7.  Finish Enter Initials and Submit score.  Next GameOver function by Submit button as eventlistner.
 function Finish() {
@@ -181,7 +172,32 @@ function Finish() {
   UserInitials.classList.toggle("Toggle-Display", false);
 }
 
+//  Places user inititals and score into localstorage.
+InitialsInput;
 
+function setUserScore() {
+  if(localStorage.getItem("Players") == null) {
+    localStorage.setItem("Players", `[]`);
+  }
+
+  var Player =                             // Shout out to person in my credits.  Could not figure this our for three days.  The array part any who.
+    {
+      Player: InitialsInput.value,
+      Scored: Score
+    };
+
+
+  var PreviousPlayers = JSON.parse(localStorage.getItem("Players"));
+  console.log("parse", PreviousPlayers);
+
+  PreviousPlayers.push(Player);
+  console.log("pushnew", PreviousPlayers);
+
+  localStorage.setItem("Players", JSON.stringify(PreviousPlayers));
+  console.log("stringed", PreviousPlayers);
+
+GameOver();
+}
 
 // 10.  Event Listener for ClearScores function
 ClearScores.addEventListener("click", function() {
@@ -204,12 +220,20 @@ function GameOver() {
   StartQuiz.classList.toggle("Toggle-Display", true);
   AnswerContainer.classList.toggle("Toggle-Display", true);
   UserInitials.classList.toggle("Toggle-Display", true);
-  var RecordPull = JSON.parse(localStorage.getItem("Users"));
   DisplayScore.classList.add("Scores");
+
+  var RecordPull = JSON.parse(localStorage.getItem("Players"));
   DisplayScore.innerHTML = RecordPull.InitialsInput + " - " + RecordPull.Score;  
-  IntroQuestion.parentNode.insertBefore(DisplayScore, IntroQuestion.nextSibling);  //For future reference:  parentGuest.parentNode.insertBefore(childGuest, parentGuest.nextSibling);
+  IntroQuestion.parentNode.insertBefore(DisplayScore, IntroQuestion.nextSibling);
 
+/*
+  //for(let i = RecordPull.length; i > 0; i--) {
+    for(let i = 0; i < RecordPull.length; i++) {
+    
+    DisplayScore.innerHTML = RecordPull.Player + " - " + RecordPull.Scored;
+    IntroQuestion.parentNode.insertBefore(DisplayScore, IntroQuestion.nextSibling);  //For future reference:  parentGuest.parentNode.insertBefore(childGuest, parentGuest.nextSibling);
 
-
-  console.log(localStorage);
+  }
+  */  
+  
 }

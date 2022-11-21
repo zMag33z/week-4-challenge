@@ -35,9 +35,11 @@ Welcome to the Coding Quiz Challenge.  Just a five question quiz on basic topics
 
 [Code Explained](https://www.youtube.com/watch?v=49pYIMygIcU&t=1431s)(Key and Function step help)
 
+[{RhymBill}](https://www.youtube.com/watch?v=2hJ1rTANVnk)(Key to Local storage array)
+
 ## This site.
 
-[Password Generator](https://zmag33z.github.io/week-4-challenge/)
+[Javascript Quiz](https://zmag33z.github.io/week-4-challenge/)
 
 ## License
 
