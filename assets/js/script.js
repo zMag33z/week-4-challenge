@@ -1,7 +1,6 @@
-/*Excuse within the Functions, the push to Next Functions being aligned all the way to left.
-Was easier for eye targeting the flow.  Left as is for future reference.*/
+/*Excuse carrier on functions aligned to the left.  Easier view to follow the functions.*/
 
-// Variables Claimed.  Target by class or id.
+//  Variables Claimed.  Target by class or id.
 var ViewHighscores = document.querySelector(".View-Highscores");
 var Timer = document.querySelector(".Timer");
 var Time = document.querySelector("#Time-Entered");
@@ -20,10 +19,10 @@ var CorrectWrong = document.querySelector(".Poppin");
 var UserInitials = document.querySelector("#User");
 var InitialsInput = document.querySelector("#Int");
 var ClearScores = document.querySelector(".Clear-Scores");
-var DisplayScore;
+var DisplayScore;  //  Only claimed as name variable to be used and passed through two functions.
 
-//Question Key
-var Fragen = [  //German: Fragen means Questions.  Needed another question variable name.
+//  Question Key
+var Fragen = [  //  German: Fragen means Questions.  Needed another question variable name.
 {
 Question: '1.  Which of the following type of variable is visible everywhere in your JavaScript code?',
 A: 'a - global variable',
@@ -70,14 +69,13 @@ window.onload = function Welcome() {
   IntroQuestion.textContent = "Coding Quiz Challenge";
   Directions.textContent = "Try to answer the following code-related questions within the time limit.  Keep in mind that an incorrect answer will penalize your scoretime by 10 seconds.";
   StartQuiz.textContent = "Start Quiz";
-  IntroQuestion.classList.toggle("Toggle-Display", false);  // Went with class toggle to seperate setAttribute style from display.
+  IntroQuestion.classList.toggle("Toggle-Display", false);  //  Went with class toggle to seperate setAttribute style from display.
   Directions.classList.toggle("Toggle-Display", false);
   StartQuiz.classList.toggle("Toggle-Display", false);
 }
 
 // 2.  Event Listener target Start Quiz.  Second Click event Reload page.  clickCount variable to keep count.
-let clickCount = 1;
-
+let clickCount = 1;  // Claimed Globally to be added to through other click events.
 StartQuiz.addEventListener("click", function() {
     if(clickCount === 2) {
       window.location.reload();
@@ -99,14 +97,13 @@ Questions();
 }
 
  // 3.5 timer function here
-var oneSecond;
-let Score = 75;
-
+var oneSecond;  // Global variable to be cleared from another function.
+let Score = 75; // Time is the Score.
  function timer(){
   oneSecond = setInterval(function(){
       if (Score === 0){
 clearInterval(oneSecond);
-GameOver();
+LoadScores();
       } else {
         Score--;
         Time.textContent = Score;
@@ -117,11 +114,10 @@ GameOver();
 // 4.  Question Display function to Question key.
 const LastQuestion = Fragen.length -1; //These are my exit compared to one another after cycling.
 let QuestionOrder = 0;
-
 function Questions() {
-  if(QuestionOrder === Fragen.length) {  //Exit Questions
-clearInterval(oneSecond);   //Stopped timer here to not interfere with true time for User with delayed Finish display.
-setTimeout(Finish, 1000);   //Slowed down Finish Display.  Didn't like the Answer Output being displayed during Finish function.
+  if(QuestionOrder === Fragen.length) {  // Exit Questions
+clearInterval(oneSecond);   //Stopped timer here to not interfere with true time for User Score.
+setTimeout(Finish, 1000);   //Slowed down Finish Display.  Didn't like the Answer Output (Correct/Wrong) being displayed during Finish function.
   }else{    
     let q = Fragen[QuestionOrder];
     IntroQuestion.textContent = q.Question;
@@ -132,9 +128,9 @@ setTimeout(Finish, 1000);   //Slowed down Finish Display.  Didn't like the Answe
   }
 }
 
-// 5.  Check Answer after button clicked.  Targeted by internal HTML button tags.
+// 5.  Check Answer after click event.  Click event targeted by internal HTML button tags.
 function CheckAnswer(answer) {
-  setTimeout(Popped, 500); // Set off popped after 1 sec.
+  setTimeout(Popped, 500); // Set off popped after 1/2 sec.
     if(Fragen[QuestionOrder].Correct == answer) {
       CorrectWrong.textContent = "Correct!";
       AnswerOutput.classList.toggle("Toggle-Display", false);
@@ -150,12 +146,12 @@ function CheckAnswer(answer) {
     }
   }
   
-// 5.5  Answer Output disappears
+// 5.5  Answer Output disappears.  On setTimeout function by 1/2 sec.
 function Popped() {
   AnswerOutput.classList.toggle("Toggle-Display", true);
  }
 
-// 6.  Finish Enter Initials and Submit score.  Next GameOver function by Submit button as eventlistner.
+// 6.  Finish: Enter Initials and Submit score.  Next GameOver function by Submit button as eventlistner.
 function Finish() {
   IntroQuestion.setAttribute("style", "height: auto;")
   IntroQuestion.textContent = "All done!";
@@ -166,7 +162,7 @@ function Finish() {
 }
 
 // 7.  Event Lister for Initial and Score Submission to GameOver function. JSON Parse method included here.  Had to create function any how to prevent default.  May as well use it.
-//  Places user inititals and score into localstorage.
+//  Submit button coded to Save user inititals and score to localstorage.
 UserInitials.addEventListener("submit", function(e) {
 e.preventDefault();
 
@@ -183,12 +179,10 @@ e.preventDefault();
   var PreviousPlayers = JSON.parse(localStorage.getItem("Players"));
   PreviousPlayers.push(Player);
   localStorage.setItem("Players", JSON.stringify(PreviousPlayers));
-Loadscores();
+LoadScores();
 });
 
-
-
-// 9.  Game Over   Go Back try again or wipe scores.
+// 9.  Game Over display.  Go Back try again or wipe scores.
 function GameOver() {
   ViewHighscores.setAttribute("style", "visibility: hidden;");// only hidden to keep object field spacing.
   Timer.setAttribute("style", "visibility: hidden;");
@@ -205,27 +199,30 @@ function GameOver() {
   UserInitials.classList.toggle("Toggle-Display", true);
 }
 
-// LoadScores created to bypass console error when loading from highscores button.
-var RecordPull = [];
-function Loadscores(){
+// LoadScores.  Takes current localStorage and displays Player and Score.  Created to bypass console error when loading from highscores button with no localstorage.
+var RecordPull;
+function LoadScores(){
+  if(localStorage.length === 0){  // if localstorage empty move on to gameover display.
+GameOver();
+  }else{      // if from highscores button this just generates previous scores from localstorage.  but again above if it's empty just move on.
   RecordPull = JSON.parse(localStorage.getItem("Players"));
   for(let i = 0; i < RecordPull.length; i++) {
     DisplayScore = document.createElement("p");
     DisplayScore.classList.add("Scores");
-    DisplayScore.innerHTML = RecordPull[i].Player + " - " + RecordPull[i].Scored;  
-    IntroQuestion.parentNode.insertBefore(DisplayScore, IntroQuestion.nextSibling);  
-  }
+    DisplayScore.innerHTML = RecordPull[i].Player + " - " + RecordPull[i].Scored;  // Shout out to Torre for helping with this line for display which is now applied to a for loop.
+    IntroQuestion.parentNode.insertBefore(DisplayScore, IntroQuestion.nextSibling);
 GameOver();
+    }
+  }
 }
 
 // 10.  Event Listener for ClearScores function
 ClearScores.addEventListener("click", function() {
-console.log(RecordPull);
-  DisplayScore.remove();
+
+DisplayScore.remove();
   
   localStorage.clear();
 });
 
-// Add this to GameOver
-//function Records()
+
 //For future reference:  parentGuest.parentNode.insertBefore(childGuest, parentGuest.nextSibling);  IntroQuestion.parentNode.insertBefore(DisplayScore, IntroQuestion.nextSibling);
