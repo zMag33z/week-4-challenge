@@ -20,7 +20,7 @@ var CorrectWrong = document.querySelector(".Poppin");
 var UserInitials = document.querySelector("#User");
 var InitialsInput = document.querySelector("#Int");
 var ClearScores = document.querySelector(".Clear-Scores");
-var DisplayScore = document.createElement("p");
+var DisplayScore;
 
 //Question Key
 var Fragen = [  //German: Fragen means Questions.  Needed another question variable name.
@@ -63,18 +63,6 @@ Correct: "D",
 ]
 
 
-// 2.  Event Listener target Start Quiz.  Second Click event Reload page.  clickCount variable to keep count.
-let clickCount = 1;
-
-StartQuiz.addEventListener("click", function() {
-    if(clickCount === 2) {
-      window.location.reload();
-    } else {
-QuizStart();     
-    }
-    clickCount++;
-});
-
 // 1.  Onload Display
 window.onload = function Welcome() {
   ViewHighscores.textContent = "View Highscores";
@@ -86,6 +74,18 @@ window.onload = function Welcome() {
   Directions.classList.toggle("Toggle-Display", false);
   StartQuiz.classList.toggle("Toggle-Display", false);
 }
+
+// 2.  Event Listener target Start Quiz.  Second Click event Reload page.  clickCount variable to keep count.
+let clickCount = 1;
+
+StartQuiz.addEventListener("click", function() {
+    if(clickCount === 2) {
+      window.location.reload();
+    } else {
+QuizStart();     
+    }
+    clickCount++;
+});
 
 // 3.  Start Quiz after eventlistener.
 function QuizStart() {
@@ -115,7 +115,6 @@ GameOver();
 }
 
 // 4.  Question Display function to Question key.
-// 6.  Comes back to see if Key length met.
 const LastQuestion = Fragen.length -1; //These are my exit compared to one another after cycling.
 let QuestionOrder = 0;
 
@@ -135,34 +134,28 @@ setTimeout(Finish, 1000);   //Slowed down Finish Display.  Didn't like the Answe
 
 // 5.  Check Answer after button clicked.  Targeted by internal HTML button tags.
 function CheckAnswer(answer) {
-setTimeout(Popped, 500); // Set off popped after 1 sec.
-  if(Fragen[QuestionOrder].Correct == answer) {
-    CorrectWrong.textContent = "Correct!";
-    AnswerOutput.classList.toggle("Toggle-Display", false);
-    QuestionOrder++;
-Questions();
-  }else{
-    CorrectWrong.textContent = "Wrong!";
-    AnswerOutput.classList.toggle("Toggle-Display", false);
-    Score = Score - 10;
-    Time.textContent = Score;  // Needed to capture final score text output.
-    QuestionOrder++;
-Questions();
+  setTimeout(Popped, 500); // Set off popped after 1 sec.
+    if(Fragen[QuestionOrder].Correct == answer) {
+      CorrectWrong.textContent = "Correct!";
+      AnswerOutput.classList.toggle("Toggle-Display", false);
+      QuestionOrder++;
+  Questions();
+    }else{
+      CorrectWrong.textContent = "Wrong!";
+      AnswerOutput.classList.toggle("Toggle-Display", false);
+      Score = Score - 10;
+      Time.textContent = Score;  // Needed to capture final score text output.
+      QuestionOrder++;
+  Questions();
+    }
   }
-}
-
+  
 // 5.5  Answer Output disappears
 function Popped() {
   AnswerOutput.classList.toggle("Toggle-Display", true);
  }
 
-// 8.  Event Lister for Initial and Score Submission to GameOver function. JSON Parse method included here.  Had to create function any how to prevent default.  May as well use it.
-UserInitials.addEventListener("submit", function(e) {
-e.preventDefault();
-setUserScore();
-});
-
-// 7.  Finish Enter Initials and Submit score.  Next GameOver function by Submit button as eventlistner.
+// 6.  Finish Enter Initials and Submit score.  Next GameOver function by Submit button as eventlistner.
 function Finish() {
   IntroQuestion.setAttribute("style", "height: auto;")
   IntroQuestion.textContent = "All done!";
@@ -172,10 +165,11 @@ function Finish() {
   UserInitials.classList.toggle("Toggle-Display", false);
 }
 
+// 7.  Event Lister for Initial and Score Submission to GameOver function. JSON Parse method included here.  Had to create function any how to prevent default.  May as well use it.
 //  Places user inititals and score into localstorage.
-InitialsInput;
+UserInitials.addEventListener("submit", function(e) {
+e.preventDefault();
 
-function setUserScore() {
   if(localStorage.getItem("Players") == null) {
     localStorage.setItem("Players", `[]`);
   }
@@ -186,24 +180,13 @@ function setUserScore() {
       Scored: Score
     };
 
-
   var PreviousPlayers = JSON.parse(localStorage.getItem("Players"));
-  console.log("parse", PreviousPlayers);
-
   PreviousPlayers.push(Player);
-  console.log("pushnew", PreviousPlayers);
-
   localStorage.setItem("Players", JSON.stringify(PreviousPlayers));
-  console.log("stringed", PreviousPlayers);
-
-GameOver();
-}
-
-// 10.  Event Listener for ClearScores function
-ClearScores.addEventListener("click", function() {
-    DisplayScore.remove();
-    localStorage.clear();
+Loadscores();
 });
+
+
 
 // 9.  Game Over   Go Back try again or wipe scores.
 function GameOver() {
@@ -220,20 +203,29 @@ function GameOver() {
   StartQuiz.classList.toggle("Toggle-Display", true);
   AnswerContainer.classList.toggle("Toggle-Display", true);
   UserInitials.classList.toggle("Toggle-Display", true);
-  DisplayScore.classList.add("Scores");
-
-  var RecordPull = JSON.parse(localStorage.getItem("Players"));
-  DisplayScore.innerHTML = RecordPull.InitialsInput + " - " + RecordPull.Score;  
-  IntroQuestion.parentNode.insertBefore(DisplayScore, IntroQuestion.nextSibling);
-
-/*
-  //for(let i = RecordPull.length; i > 0; i--) {
-    for(let i = 0; i < RecordPull.length; i++) {
-    
-    DisplayScore.innerHTML = RecordPull.Player + " - " + RecordPull.Scored;
-    IntroQuestion.parentNode.insertBefore(DisplayScore, IntroQuestion.nextSibling);  //For future reference:  parentGuest.parentNode.insertBefore(childGuest, parentGuest.nextSibling);
-
-  }
-  */  
-  
 }
+
+// LoadScores created to bypass console error when loading from highscores button.
+var RecordPull = [];
+function Loadscores(){
+  RecordPull = JSON.parse(localStorage.getItem("Players"));
+  for(let i = 0; i < RecordPull.length; i++) {
+    DisplayScore = document.createElement("p");
+    DisplayScore.classList.add("Scores");
+    DisplayScore.innerHTML = RecordPull[i].Player + " - " + RecordPull[i].Scored;  
+    IntroQuestion.parentNode.insertBefore(DisplayScore, IntroQuestion.nextSibling);  
+  }
+GameOver();
+}
+
+// 10.  Event Listener for ClearScores function
+ClearScores.addEventListener("click", function() {
+console.log(RecordPull);
+  DisplayScore.remove();
+  
+  localStorage.clear();
+});
+
+// Add this to GameOver
+//function Records()
+//For future reference:  parentGuest.parentNode.insertBefore(childGuest, parentGuest.nextSibling);  IntroQuestion.parentNode.insertBefore(DisplayScore, IntroQuestion.nextSibling);
