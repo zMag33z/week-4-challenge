@@ -1,4 +1,7 @@
-/*Excuse carrier on functions aligned to the left.  Easier view to follow the functions.*/
+/*Excuse carrier on functions aligned to the left.  Easier view to follow the functions.
+Only problem not error but is main criteria.  Cannot get all Score displays to remove.
+LocalStorage is deleted though.
+Too much time already on this project.  Moving on.*/
 
 //  Variables Claimed.  Target by class or id.
 var ViewHighscores = document.querySelector(".View-Highscores");
@@ -182,6 +185,22 @@ e.preventDefault();
 LoadScores();
 });
 
+// LoadScores.  Takes current localStorage and displays Player and Score.  Created to bypass console error when loading from highscores button with no localstorage.
+function LoadScores(){
+  if(localStorage.length === 0){  // if localstorage empty move on to gameover display.
+GameOver();
+  }else{      // if from highscores button this just generates previous scores from localstorage.  but again above if it's empty just move on.
+    var RecordPull = JSON.parse(localStorage.getItem("Players"));
+  for(let i = 0; i !== RecordPull.length; i++) {
+    DisplayScore = document.createElement("p");
+    DisplayScore.classList.add("Scores");
+    DisplayScore.innerHTML = RecordPull[i].Player + " - " + RecordPull[i].Scored;  // Shout out to Torre for helping with this line for display which is now applied to a for loop.
+    IntroQuestion.parentNode.insertBefore(DisplayScore, IntroQuestion.nextSibling); // Places them on top of eachother so latest score is on top.
+    }
+GameOver();
+  }
+}
+
 // 9.  Game Over display.  Go Back try again or wipe scores.
 function GameOver() {
   ViewHighscores.setAttribute("style", "visibility: hidden;");// only hidden to keep object field spacing.
@@ -197,32 +216,19 @@ function GameOver() {
   StartQuiz.classList.toggle("Toggle-Display", true);
   AnswerContainer.classList.toggle("Toggle-Display", true);
   UserInitials.classList.toggle("Toggle-Display", true);
-}
-
-// LoadScores.  Takes current localStorage and displays Player and Score.  Created to bypass console error when loading from highscores button with no localstorage.
-var RecordPull;
-function LoadScores(){
-  if(localStorage.length === 0){  // if localstorage empty move on to gameover display.
-GameOver();
-  }else{      // if from highscores button this just generates previous scores from localstorage.  but again above if it's empty just move on.
-  RecordPull = JSON.parse(localStorage.getItem("Players"));
-  for(let i = 0; i < RecordPull.length; i++) {
-    DisplayScore = document.createElement("p");
-    DisplayScore.classList.add("Scores");
-    DisplayScore.innerHTML = RecordPull[i].Player + " - " + RecordPull[i].Scored;  // Shout out to Torre for helping with this line for display which is now applied to a for loop.
-    IntroQuestion.parentNode.insertBefore(DisplayScore, IntroQuestion.nextSibling);
-GameOver();
-    }
-  }
+  console.dir(DisplayScore); 
 }
 
 // 10.  Event Listener for ClearScores function
 ClearScores.addEventListener("click", function() {
-
-DisplayScore.remove();
-  
-  localStorage.clear();
+//  var cycle = localStorage.length;
+//  for(let i = 0; i !== localStorage.length; i++){
+//  cycle[i] = DisplayScore.remove();;
+//  }
+DisplayScore.remove();    // Been trying for hours to remove these with multiple methods.  Even tried to rerun gameover without record but once in dom always in dom.  Aint working was last thing on agenda I believe.
+localStorage.clear();
 });
 
 
 //For future reference:  parentGuest.parentNode.insertBefore(childGuest, parentGuest.nextSibling);  IntroQuestion.parentNode.insertBefore(DisplayScore, IntroQuestion.nextSibling);
+//Legend for me to understand code lingo.  Example this one: parentGuest plug in IntroQuestion,  parentnode says its now a parent, function here is insertBefore, (who we are calling, the one accepting who as . next sibling) 
